@@ -4,6 +4,7 @@ import os
 from core.Simulator import Manager, Role, Status
 from core.Utils import Logger, Config, GetBall
 from core.Utils.TTS import TTS
+from core.Utils.Namazu import use_skill
 from .Utils import *
 from .stages import Terminator, Stage1, Stage2, Stage3, Stage4, Stage1_s4
 from core.Utils.i18n import system_to_client_text as _
@@ -148,6 +149,10 @@ class Solver(object):
         if ans is not None:
             self.log("recommend:", ans)
             if self.recall is not None: self.recall(ans)
+            if ans != 'terminate':
+                use_skill(ans)
+            if ans == 'terminate':
+                use_skill('高速制作')
             TTS(ans)
         else:
             print("no recommend")
